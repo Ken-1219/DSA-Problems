@@ -218,60 +218,41 @@ void deleteAtEnd(Node* &head, Node* &tail)
 
 /*===========================================================================*/
 
-void deleteAtPosition(Node* &head, Node* &tail, int position)
+void deleteAtPosition(Node* &head, Node* &tail, int pos)
 {
-  //deletion at head
-  if (lengthOfLL(head) == 0 || lengthOfLL(head) == 1 || position == 1)
+  if (head == NULL || lengthOfLL(head) == 0 || pos > lengthOfLL(head))
+    {
+      return;
+    }
+  if (pos == 1)
     {
       deleteAtHead(head, tail);
       return;
     }
-
-  //position starts from 1 and cannot be greater than lenghtofLL
-  if (position <= 0 || position > lengthOfLL(head))
-    {
-      return;
-    }
-
-  //deleteion at end
-  if (position == lengthOfLL(head))
+  if (pos == lengthOfLL(head))
     {
       deleteAtEnd(head, tail);
       return;
     }
 
-  //deletion at a particular position -> no need to update tail
-  int count = 1;
   Node* temp = head;
-  while (count != position - 1)
+  int count = 1;
+  while (count < pos - 1)
     {
       count++;
       temp = temp->next;
     }
   Node* nodeToBeDeleted = temp->next;
-  temp->next = nodeToBeDeleted->next;
   nodeToBeDeleted->next->prev = temp;
-  nodeToBeDeleted->prev = NULL;
+  temp->next = nodeToBeDeleted->next;
   nodeToBeDeleted->next = NULL;
+  nodeToBeDeleted->prev = NULL;
+
   delete []nodeToBeDeleted;
 }
 
 
-
 /*===========================================================================*/
-
-
-
-/*===========================================================================*/
-
-
-
-/*===========================================================================*/
-
-
-
-
-
 
 
 int main()
@@ -291,15 +272,24 @@ int main()
   printLL(head);
   cout << "Length of LL is : " << lengthOfLL(head) << endl << endl;
 
+  //---------------- delete at 1st position that is at head ---------------------
   deleteAtPosition(head, tail, 1);
   printLL(head);
   cout << "Length of LL is : " << lengthOfLL(head) << endl << endl;
 
-  deleteAtPosition(head, tail, 1);
+
+  //---------------- delete at last position that is at tail --------------------
+  deleteAtPosition(head, tail, lengthOfLL(head));
   printLL(head);
   cout << "Length of LL is : " << lengthOfLL(head) << endl << endl;
 
-  cout << "Reverse Traversal: " << endl;
+
+  //----------------- delete at any position that is in between tail and head -----------
+  deleteAtPosition(head, tail, 5);
+  printLL(head);
+  cout << "Length of LL is : " << lengthOfLL(head) << endl << endl;
+
+
+  cout << "Reverse LL is: " << endl;
   printReverseLL(tail);
-  cout << "Length of LL is : " << lengthOfLL(head) << endl << endl;
 }

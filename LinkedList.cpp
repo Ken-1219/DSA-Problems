@@ -31,6 +31,20 @@ int lengthOfLL(Node* &head)
 }
 
 
+void printLL(Node *& head)
+{
+  Node *temp = head;
+
+  while (temp != NULL)
+    {
+      cout << temp->data << " ";
+      temp = temp->next;
+    }
+  cout << endl << endl;
+}
+
+
+
 
 
 
@@ -49,24 +63,6 @@ void insertAtHead(Node *& head, int data)
       head = temp;
     }
 }
-
-
-
-
-void printLL(Node *& head)
-{
-  Node *temp = head;
-
-  while (temp != NULL)
-    {
-      cout << temp->data << " ";
-      temp = temp->next;
-    }
-  cout << endl << endl;
-}
-
-
-
 
 
 void insertAtEnd(Node*& head, int data)
